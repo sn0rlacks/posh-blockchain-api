@@ -2,7 +2,7 @@
 .SYNOPSIS
     Used to derive a Public Key given the B58 Private Key string
 #>
-function PublicKey {
+function Find-PublicKey {
     $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
     $headers.Add("APIKeyID", $Env:blockchainkeyid)
     $headers.Add("APISecretKey", $Env:blockchainsecret)
