@@ -1,4 +1,4 @@
-function Add-NFTListing {
+function New-NFTListing {
     param(
         [Parameter(Mandatory=$true)]
         [ValidateSet("devnet", "mainnet-beta")]
