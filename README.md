@@ -1,5 +1,5 @@
 # posh-blockchain-api
-Wrapper for the wonderful BlockchainAPI by Josh Wolff
+Wrapper for the wonderful BlockchainAPI by Josh Wolff. AT PRESENT, IS UNFINISHED. CAN DO BASIC TASKS. See --> https://docs.blockchainapi.com/ for usage of the base API. All credit to https://github.com/joshwolff1
 
 ## USAGE
 
