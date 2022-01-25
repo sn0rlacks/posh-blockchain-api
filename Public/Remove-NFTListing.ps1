@@ -24,7 +24,7 @@ function Remove-NFTListing {
     $headers.Add("APISecretKey", $Env:blockchainsecret)
     $headers.Add("Content-Type", "application/json")
 
-    $privatekey = Read-Host "Enter the Base58 Private Key that listed the NFT" -MaskInput
+    $privatekey = Read-Host "Enter the Base58 Private Key that listed the NFT. THIS IS YOU SIGNING THE TX" -MaskInput
 
     $body = [PSCustomObject]@{
         wallet = @{
