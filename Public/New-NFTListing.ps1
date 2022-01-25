@@ -30,7 +30,7 @@ function New-NFTListing {
         wallet = @{
             b58_private_key = $privatekey
         }
-        nft_price = [System.Int64](1000000000*$Price)
+        nft_price = [System.Int64]($Lamports*$Price)
     } | ConvertTo-Json
 
     try {

@@ -11,7 +11,7 @@
     Default is SOL. If you're transfering a token, supply the token address found on the explorer.
     
 #>
-function Send-SPLTokens {
+function Send-SPLToken {
     param(
         [Parameter(Mandatory=$true)]
         [String]

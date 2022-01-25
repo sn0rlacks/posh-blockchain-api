@@ -1,24 +1,28 @@
-function Get-TokensInWallet {
+<#
+.SYNOPSIS
+    Used to Airdrop .015 Sol from the devnet
+.PARAMETER PublicKey
+    The address of the wallet for the Airdrop
+#>
+function New-DevnetAirdrop {
     param(
         [Parameter(Mandatory=$true)]
         [string] 
-        $PublicKey,
-
-        [Parameter(Mandatory=$true)]
-        [ValidateSet("devnet", "mainnet-beta")]
-        [String]
-        $Network
+        $PublicKey
     )
-
     $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
     $headers.Add("APIKeyID", $Env:blockchainkeyid)
     $headers.Add("APISecretKey", $Env:blockchainsecret)
     $headers.Add("Content-Type", "application/json")
 
+    $body = [PSCustomObject]@{
+        recipient_address = $PublicKey
+    } | ConvertTo-Json
+
     try {
-        $api = "$ApiUrl/solana/wallet/$Network/$PublicKey/tokens"
-        $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers
-        return $response | Format-List
+        $api = "$ApiUrl/solana/wallet/airdrop"
+        $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body $body
+        return $response
     } catch {
         Write-Host "Status Code:" $_.Exception.Response.StatusCode.value__
         Write-Host "Status Description:" $_.Exception.Response.StatusDescription
