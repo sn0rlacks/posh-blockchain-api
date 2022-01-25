@@ -21,7 +21,7 @@ function Get-SolanaWalletBalance {
     } | ConvertTo-Json
 
     try {
-        $api = "https://api.blockchainapi.com/v1/solana/wallet/balance"
+        $api = "$ApiUrl/solana/wallet/balance"
         $response = Invoke-RestMethod $api -Method 'POST' -Body $body -Headers $headers 
         return $response | ConvertTo-Json
     } catch {

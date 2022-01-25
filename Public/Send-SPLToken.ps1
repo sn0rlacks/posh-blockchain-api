@@ -49,7 +49,7 @@ function Send-SPLTokens {
     } | ConvertTo-Json
 
     try {
-        $api = "https://api.blockchainapi.com/v1/solana/wallet/transfer"
+        $api = "$ApiUrl/solana/wallet/transfer"
         $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body $body
         return $response | Format-List
     } catch {

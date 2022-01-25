@@ -33,7 +33,7 @@ function Remove-NFTListing {
     } | ConvertTo-Json
 
     try {
-        $api = "https://api.blockchainapi.com/v1/solana/nft/marketplaces/$Marketplace/delist/$Network/$MintAddress"
+        $api = "$ApiUrl/solana/nft/marketplaces/$Marketplace/delist/$Network/$MintAddress"
         $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body $body
         return $response | Format-List
     } catch {

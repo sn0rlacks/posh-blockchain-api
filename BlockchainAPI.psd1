@@ -69,7 +69,7 @@ PowerShellVersion = '7.0'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @('Add-NFTListing', 'Get-TokensInWallet', 'Enter-BlockchainAPI', 'Remove-NFTListing', 'Get-NFTInWallet', 'Get-SolanaWalletBalance')
+FunctionsToExport = @('Add-NFTListing', 'Get-TokensInWallet', 'Enter-BlockchainAPI', 'Remove-NFTListing', 'Get-NFTInWallet', 'Get-SolanaWalletBalance', 'Send-SPLToken')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()

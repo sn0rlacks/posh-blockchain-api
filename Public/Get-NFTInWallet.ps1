@@ -16,7 +16,7 @@ function Get-NFTInWallet {
     $headers.Add("Content-Type", "application/json")
 
     try {
-        $api = "https://api.blockchainapi.com/v1/solana/wallet/$Network/$PublicKey/nfts"
+        $api = "$ApiUrl/solana/wallet/$Network/$PublicKey/nfts"
         $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers
         return $response | Format-List
     } catch {
