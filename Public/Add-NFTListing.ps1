@@ -34,7 +34,7 @@ function Add-NFTListing {
     } | ConvertTo-Json
 
     try {
-        $api = "https://api.blockchainapi.com/v1/solana/nft/marketplaces/$Marketplace/list/$Network/$MintAddress"
+        $api = "$ApiUrl/solana/nft/marketplaces/$Marketplace/list/$Network/$MintAddress"
         $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body $body
         return $response | Format-List
     } catch {
