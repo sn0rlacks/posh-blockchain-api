@@ -1,9 +1,15 @@
+<#
+.SYNOPSIS
+    Used to Delist an NFT from either Solsea or Magic Eden
+.PARAMETER Network
+    Network to use. Choices are mainnet-beta and devnet.
+.PARAMETER Marketplace
+    Marketplace where NFT is listed. Solsea or Magic Eden
+.PARAMETER MintAddress
+    Exact Mint Address of the NFT you wish to Delist    
+#>
 function Remove-NFTListing {
     param(
-        [Parameter(Mandatory=$true)]
-        [string] 
-        $PublicKey,
-
         [Parameter(Mandatory=$true)]
         [ValidateSet("devnet", "mainnet-beta")]
         [String]
