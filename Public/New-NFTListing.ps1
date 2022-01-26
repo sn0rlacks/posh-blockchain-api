@@ -1,3 +1,15 @@
+<#
+.SYNOPSIS
+    Used to list an NFT from either Solsea or Magic Eden
+.PARAMETER Network
+    Network to use. Choices are mainnet-beta and devnet.
+.PARAMETER Marketplace
+    Marketplace where nft should be listed. Solsea or Magic Eden
+.PARAMETER MintAddress
+    Exact Mint Address of the NFT you wish to Delist    
+.PARAMETER Price
+    The price which to list the NFT
+#>
 function New-NFTListing {
     param(
         [Parameter(Mandatory=$true)]

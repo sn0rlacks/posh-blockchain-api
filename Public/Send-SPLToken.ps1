@@ -39,10 +39,10 @@ function Send-SPLToken {
     $privatekey = Read-Host "Enter the Base58 Private Key for the sending wallet. THIS IS YOU SIGNING THE TX" -MaskInput
 
     $body = [PSCustomObject]@{
-        recipient_address = $Recepient
         wallet = @{
             b58_private_key = $privatekey
         }
+        recipient_address = $Recepient
         network = $Network
         amount = $Amount
         token_address = $TokenAddress
