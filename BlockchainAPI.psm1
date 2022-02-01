@@ -1,6 +1,6 @@
 <#
     .Synopsis
-        This is the main scaffolding the glues all the pieces together.
+        This is the parent modulescript that connects all the dots
 #>
 [String]$Script:ApiUrl = 'https://api.blockchainapi.com/v1'
 [Int64]$Script:Lamports = 1000000000
