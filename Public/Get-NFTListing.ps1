@@ -26,6 +26,9 @@ function Get-NFTListing {
     try {
         $api = "$ApiUrl/solana/nft/marketplaces/listing/$Network/$MintAddress"
         $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers
+        foreach ($listing in $response) {
+            $listing.price = [Decimal]$listing.price/$Lamports
+        }
         return $response
     } catch {
         Write-Host "Status Code:" $_.Exception.Response.StatusCode.value__
