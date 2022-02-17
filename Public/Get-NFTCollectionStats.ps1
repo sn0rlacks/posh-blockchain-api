@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Pulls escrow data for a given collection on Magic Eden marketplace.ME Rate Limit is 120 Calls/Minute
+    Pulls escrow data for a given collection on Magic Eden marketplace.ME Rate Limit is 120 Calls/m,minute
 .PARAMETER CollectionName
     ToLower, Under-delimited name of the NFT Collection. i.e high_roller_hippo_clique
 #>
@@ -18,7 +18,10 @@ function Get-NFTCollectionStats {
         $api = "$MEUrl/rpc/getCollectionEscrowStats/$CollectionName"
         $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers -ResponseHeadersVariable 'ResponseHeaders'
         $response | Add-Member -MemberType NoteProperty -Name 'Headers' -Value $ResponseHeaders
-        return $response
+        $response.results.floorPrice = $response.results.floorPrice/$Lamports
+        $response.results.avgPrice24hr = [Math]::Round(($response.results.avgPrice24hr/$Lamports),2)
+        $response.results.volumeAll = [Math]::Round(($response.results.volumeAll/$Lamports),2)
+        return $response.results | Select-Object symbol, floorPrice, avgPrice24hr, listedCount, volumeAll | Format-List
     } catch {
         Write-Host "Status Code:" $_.Exception.Response.StatusCode.value__
         Write-Host "Status Description:" $_.Exception.Response.StatusDescription
