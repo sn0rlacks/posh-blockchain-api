@@ -1,12 +1,27 @@
-function Get-SolanaWalletBalance {
+<#
+.SYNOPSIS
+    Used to search for an NFT collection
+.PARAMETER Name
+    Name you wish to search on
+.PARAMETER SearchMethod
+    Method which to use
+.PARAMETER Network
+    Network which to use. mainnet-beta or devnet
+#>
+function Find-NFTCollection {
     param(
         [Parameter(Mandatory=$true)]
         [string] 
-        $PublicKey,
-        
+        $Name,
+
         [Parameter(Mandatory=$true)]
+        [ValidateSet("exact_match", "begins_with")]
+        [String] 
+        $SearchMethod,
+
+        [Parameter(Mandatory=$true, Default='mainnet-beta')]
         [ValidateSet("devnet", "mainnet-beta")]
-        [String]
+        [String] 
         $Network
     )
 
@@ -16,25 +31,18 @@ function Get-SolanaWalletBalance {
     $headers.Add("Content-Type", "application/json")
 
     $body = [PSCustomObject]@{
-        public_key = $PublicKey
-        unit = "sol"
-        network = $Network
+        name = $Name
+        name_search_method = $SearchMethod
     } | ConvertTo-Json
 
     try {
-        $api = "$ApiUrl/solana/wallet/balance"
-        $response = Invoke-RestMethod $api -Method 'POST' -Body $body -Headers $headers 
-        $solprice = Get-SPLTokenPrice -TokenAddress $wrapped_sol
-        foreach ($result in $response) {
-            $usd = [Math]::Round(([decimal]$result.balance * [decimal]$solprice.priceUsdt), 2)
-            $response | Add-Member -MemberType NoteProperty -Name 'usd_value' -Value $usd
-            $response.PSObject.Properties.Remove('network')
-        }
+        $api = "$ApiUrl/solana/nft/search"
+        $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body $body
         return $response
     } catch {
         Write-Host "Status Code:" $_.Exception.Response.StatusCode.value__
         Write-Host "Status Description:" $_.Exception.Response.StatusDescription
         Write-Host "Status Message:" $_.ErrorDetails.Message
-        Write-Host "Other:" $_ 
+        Write-Host "Other:" $_
     }
 }
