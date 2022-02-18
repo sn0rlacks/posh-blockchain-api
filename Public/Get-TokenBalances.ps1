@@ -26,7 +26,7 @@ function Get-TokenBalances {
         $api = "$ApiUrl/solana/wallet/$Network/$PublicKey/tokens"
         $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers
         foreach ($token in $response) {
-            $tokendata = Get-TokenData -TokenAddress $token.mint_address
+            $tokendata = Get-TokenData -TokenAddress $token.mint_address -Url public
             $tokenName = $tokendata.name
             $tokenSymbol = $tokendata.symbol
             $tokenInfo = $tokendata.tag
