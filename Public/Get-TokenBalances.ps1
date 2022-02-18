@@ -36,6 +36,6 @@ function Get-TokenBalances {
         }
         return $response
     } catch {
-        PSLog($_)
+        $error
     }
 }

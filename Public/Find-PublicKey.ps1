@@ -21,6 +21,6 @@ function Find-PublicKey {
         $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body $body
         return $response
     } catch {
-        PSLog($_)
+       $error
     }
 }

@@ -43,6 +43,6 @@ function Remove-NFTListing {
         $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body $body
         return $response | Format-List
     } catch {
-        PSLog($_)
+        $error
     }
 }

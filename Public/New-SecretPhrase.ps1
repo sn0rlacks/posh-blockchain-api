@@ -13,6 +13,6 @@ function New-SecretPhrase {
         $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers
         return $response
     } catch {
-        PSLog($_)
+        $error
     }
 }

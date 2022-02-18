@@ -31,6 +31,6 @@ function Get-NFTListing {
         }
         return $response
     } catch {
-        PSLog($_)
+        $error
     }
 }

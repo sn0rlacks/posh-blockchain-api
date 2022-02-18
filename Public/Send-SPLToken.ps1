@@ -59,6 +59,6 @@ function Send-SPLToken {
         $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body ($body | ConvertTo-Json)
         return $response | Format-List
     } catch {
-        PSLog($_)
+        $error
     }
 }

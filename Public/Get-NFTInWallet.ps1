@@ -20,6 +20,6 @@ function Get-NFTInWallet {
         $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers
         return $response
     } catch {
-        PSLog($_)
+        $error
     }
 }
