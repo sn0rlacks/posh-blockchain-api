@@ -42,15 +42,21 @@ function Send-SPLToken {
         wallet = @{
             b58_private_key = $privatekey
         }
-        recipient_address = $Recepient
+        recipient_address = $Recipient
         network = $Network
         amount = $Amount
-        token_address = $TokenAddress
-    } | ConvertTo-Json
+    }
+    
+    if ($TokenAddress) {
+        $body | Add-Member -MemberType NoteProperty -Name 'token_address' -Value $TokenAddress
+        $TokenDecimals = (Get-TokenData -TokenAddress $TokenAddress).data.decimals
+        $totalamount = [Int64]$body.amount * [Math]::Pow(10, [Int64]$TokenDecimals)
+        $body.amount = [String]$totalamount
+    }
 
     try {
         $api = "$ApiUrl/solana/wallet/transfer"
-        $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body $body
+        $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body ($body | ConvertTo-Json)
         return $response | Format-List
     } catch {
         PSLog($_)
