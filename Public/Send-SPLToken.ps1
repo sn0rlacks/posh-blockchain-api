@@ -49,6 +49,9 @@ function Send-SPLToken {
     
     if ($TokenAddress) {
         $body | Add-Member -MemberType NoteProperty -Name 'token_address' -Value $TokenAddress
+        $TokenDecimals = (Get-TokenData -TokenAddress $TokenAddress).data.decimals
+        $totalamount = [Int64]$body.amount * [Math]::Pow(10, [Int64]$TokenDecimals)
+        $body.amount = [String]$totalamount
     }
 
     try {

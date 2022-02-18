@@ -17,7 +17,7 @@ function Find-NFTCollection {
         [Parameter(Mandatory=$true)]
         [ValidateSet("exact_match", "begins_with")]
         [String] 
-        $SearchMethod,
+        $NameSearchMethod,
 
         [Parameter(Mandatory=$true, Default='mainnet-beta')]
         [ValidateSet("devnet", "mainnet-beta")]
@@ -32,7 +32,7 @@ function Find-NFTCollection {
 
     $body = [PSCustomObject]@{
         name = $Name
-        name_search_method = $SearchMethod
+        name_search_method = $NameSearchMethod
     } | ConvertTo-Json
 
     try {

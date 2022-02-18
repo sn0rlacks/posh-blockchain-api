@@ -8,7 +8,7 @@ function Get-TokenData {
     $headers.Add("Content-Type", "application/json")
 
     try {
-        $api = "$SolscanApi/token/meta?tokenAddress=$TokenAddress"
+        $api = "$SolscanApi/token/meta?token=$TokenAddress"
         $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers
         return $response
     } catch {
