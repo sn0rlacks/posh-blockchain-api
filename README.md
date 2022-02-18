@@ -11,5 +11,11 @@ Wrapper for the wonderful BlockchainAPI by Josh Wolff. See --> https://docs.bloc
 
 ![image](https://user-images.githubusercontent.com/32146013/151041501-0aed69e3-c17c-422f-bf1e-24df59731588.png)
 
-
 Good to go! Run the rest of the cmdlets knowing your API keys are only local in your shell (and the parent API), never outside.
+
+### Example Output
+
+`Get-NFTCollectionData -CollectionName aurory -Marketplace magic-eden`
+
+![image](https://user-images.githubusercontent.com/32146013/154604833-ccb8bf72-64fa-46a4-8aa5-69294fcf4852.png)
+
