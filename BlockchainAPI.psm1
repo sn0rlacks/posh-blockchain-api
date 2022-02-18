@@ -4,6 +4,7 @@
 #>
 [String]$Script:ApiUrl = 'https://api.blockchainapi.com/v1'
 [String]$Script:MEUrl = 'https://api-mainnet.magiceden.io'
+[String]$Script:SolanartUrl = 'https://api.solanart.io'
 [String]$Script:wrapped_sol = "So11111111111111111111111111111111111111112"
 [Int64]$Script:Lamports = 1000000000
 [String]$Script:SolscanApi = 'https://public-api.solscan.io'

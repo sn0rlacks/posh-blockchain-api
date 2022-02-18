@@ -12,9 +12,6 @@ function Get-SPLTokenPrice {
         $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers
         return $response
     } catch {
-        Write-Host "Status Code:" $_.Exception.Response.StatusCode.value__
-        Write-Host "Status Description:" $_.Exception.Response.StatusDescription
-        Write-Host "Status Message:" $_.ErrorDetails.Message
-        Write-Host "Other:" $_
+        PSLog($_)
     }
 }

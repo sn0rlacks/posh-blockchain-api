@@ -21,9 +21,6 @@ function Find-PrivateKey {
         $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body $body
         return $response
     } catch {
-        Write-Host "Status Code:" $_.Exception.Response.StatusCode.value__
-        Write-Host "Status Description:" $_.Exception.Response.StatusDescription
-        Write-Host "Status Message:" $_.ErrorDetails.Message
-        Write-Host "Other:" $_
+        PSLog($_)
     }
 }
