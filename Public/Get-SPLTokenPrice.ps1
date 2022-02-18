@@ -8,7 +8,7 @@ function Get-SPLTokenPrice {
     $headers.Add("Content-Type", "application/json")
 
     try {
-        $api = "$SolscanApi/market/token/$TokenAddress"
+        $api = "$SolscanPublicApi/market/token/$TokenAddress"
         $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers
         return $response
     } catch {
