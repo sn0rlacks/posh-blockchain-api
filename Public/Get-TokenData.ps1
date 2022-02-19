@@ -24,6 +24,6 @@ function Get-TokenData {
         $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers
         return $response
     } catch {
-        $error
+        $_
     }
 }

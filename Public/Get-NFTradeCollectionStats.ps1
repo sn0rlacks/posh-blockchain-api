@@ -17,6 +17,12 @@ function Get-NFTradeCollectionStats {
         [string] 
         $Chain
     )
+
+    if (-Not (Get-Package -Name Angle*).Name) {
+        Write-Host "This function requires AngleSharp module. It will install now."
+        Install-PackageProvider -Name "NuGet"
+        Install-Package AngleSharp -SkipDependencies -ErrorAction SilentlyContinue
+    }
     
     If ( -Not ([System.Management.Automation.PSTypeName]'AngleSharp.Parser.Html.HtmlParser').Type ) {
         $standardAssemblyFullPath = (Get-ChildItem -Filter '*.dll' -Recurse (Split-Path (Get-Package -Name 'AngleSharp').Source)).FullName | Where-Object {$_ -Like "*standard*"} | Select-Object -Last 1
@@ -39,13 +45,16 @@ function Get-NFTradeCollectionStats {
     $parsed_content = $parsed_content.All | Where-Object ID -eq "__NEXT_DATA__" 
     $json = ($parsed_content.ChildNodes.data | ConvertFrom-Json).props.pageProps
     $CollectionDetails = [PSCustomObject]@{
+        ContractName = $json.contract.displayName
+        Symbol = $json.contract.symbol
         FloorPrice = $json.tokens.price[0]
-        ContractName = $json.tokens.contractName[0]
         Token = $unit
         Description = $json.contract.description
+        Verified = $json.contract.verified
+        Trending = $json.contract.trending
     }
     return $CollectionDetails | Format-List
     } catch {
-        $error
+        $_
     }
 }

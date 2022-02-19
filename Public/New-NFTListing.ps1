@@ -50,6 +50,6 @@ function New-NFTListing {
         $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body $body
         return $response | Format-List
     } catch {
-        $error
+        $_
     }
 }

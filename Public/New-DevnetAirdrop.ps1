@@ -24,6 +24,6 @@ function New-DevnetAirdrop {
         $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body $body
         return $response
     } catch {
-        $error
+        $_
     }
 }

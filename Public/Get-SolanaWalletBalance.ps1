@@ -32,6 +32,6 @@ function Get-SolanaWalletBalance {
         }
         return $response
     } catch {
-        $error
+        $_
     }
 }

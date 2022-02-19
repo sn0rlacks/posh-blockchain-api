@@ -27,7 +27,7 @@ function Get-NFTCollectionStats {
             Write-Host "RL Remaining: "$response.Headers['X-RateLimit-Remaining']
             return $response.results | Select-Object symbol, floorPrice, avgPrice24hr, listedCount, volume24hr, volumeAll, listedTotalValue, availableAttribues | Format-List
         } catch {
-            $error
+            $_
         }
     } elseif ($Marketplace -eq "solanart") {
         try {
@@ -46,7 +46,7 @@ function Get-NFTCollectionStats {
             $master.totalVolume = $response.totalVolume
             return $master | Format-List
         }  catch {
-            $error
+            $_
         }
     } else {
         return $null
