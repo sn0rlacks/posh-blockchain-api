@@ -2,7 +2,7 @@
 
 **This is a WIP**
 
-What started as a wrapper for the wonderful BlockchainAPI by Josh Wolff. See --> https://docs.blockchainapi.com/ for usage of the base API. All credit to https://github.com/joshwolff1 | This is now an amalgamation of tools for getting blockchain data, assets (cross-chain), token data (cross-chain), and more.
+This is now an amalgamation of tools for getting blockchain data, assets (cross-chain), token data (cross-chain), and more.
 
 ## USAGE
 
