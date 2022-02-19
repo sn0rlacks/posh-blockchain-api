@@ -36,14 +36,16 @@ function New-NFTListing {
     $headers.Add("APISecretKey", $Env:blockchainsecret)
     $headers.Add("Content-Type", "application/json")
 
-    $privatekey = Read-Host "Enter the Base58 Private Key where the NFT is held. THIS IS YOU SIGNING THE TX" -MaskInput
+    if (-Not ($Global:SolanaWallet)) {
+        Write-Host "Signing Wallet not found. Run Set-SolanaWallet to correct this"
+        exit
+    }
 
     $body = [PSCustomObject]@{
-        wallet = @{
-            b58_private_key = $privatekey
-        }
         nft_price = [System.Int64]($Lamports*$Price)
-    } | ConvertTo-Json
+    }
+
+    $body | Add-Member -MemberType NoteProperty -Name 'wallet' -Value $Global:SolanaWallet
 
     try {
         $api = "$ApiUrl/solana/nft/marketplaces/$Marketplace/list/$Network/$MintAddress"

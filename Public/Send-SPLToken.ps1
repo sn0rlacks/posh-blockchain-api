@@ -36,16 +36,18 @@ function Send-SPLToken {
     $headers.Add("APISecretKey", $Env:blockchainsecret)
     $headers.Add("Content-Type", "application/json")
 
-    $privatekey = Read-Host "Enter the Base58 Private Key for the sending wallet. THIS IS YOU SIGNING THE TX" -MaskInput
+    if (-Not ($Global:SolanaWallet)) {
+        Write-Host "Signing Wallet not found. Run Set-SolanaWallet to correct this"
+        exit
+    }
 
     $body = [PSCustomObject]@{
-        wallet = @{
-            b58_private_key = $privatekey
-        }
         recipient_address = $Recipient
         network = $Network
         amount = $Amount
     }
+
+    $body | Add-Member -MemberType NoteProperty -Name 'wallet' -Value $Global:SolanaWallet
     
     if ($TokenAddress) {
         $body | Add-Member -MemberType NoteProperty -Name 'token_address' -Value $TokenAddress
@@ -57,7 +59,7 @@ function Send-SPLToken {
     try {
         $api = "$ApiUrl/solana/wallet/transfer"
         $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body ($body | ConvertTo-Json)
-        return $response | Format-List
+        return $response
     } catch {
         $_
     }

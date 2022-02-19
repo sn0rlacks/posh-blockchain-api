@@ -36,7 +36,7 @@ function Find-NFTCollection {
 
         [Parameter(Mandatory=$false)]
         [string] 
-        $MintAddress,
+        $Mint_Address,
 
         [Parameter(Mandatory=$true)]
         [ValidateSet("exact_match", "begins_with")]
