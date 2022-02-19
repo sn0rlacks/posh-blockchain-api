@@ -36,7 +36,7 @@ function Send-SPLToken {
     $headers.Add("APISecretKey", $Env:blockchainsecret)
     $headers.Add("Content-Type", "application/json")
 
-    if (-Not ($Global:SolanaWallet)) {
+    if (-Not ($SolanaWallet)) {
         Write-Host "Signing Wallet not found. Run Set-SolanaWallet to correct this"
         exit
     }
@@ -47,7 +47,7 @@ function Send-SPLToken {
         amount = $Amount
     }
 
-    $body | Add-Member -MemberType NoteProperty -Name 'wallet' -Value $Global:SolanaWallet
+    $body | Add-Member -MemberType NoteProperty -Name 'wallet' -Value $SolanaWallet
     
     if ($TokenAddress) {
         $body | Add-Member -MemberType NoteProperty -Name 'token_address' -Value $TokenAddress

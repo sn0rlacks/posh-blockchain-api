@@ -36,7 +36,7 @@ function New-NFTListing {
     $headers.Add("APISecretKey", $Env:blockchainsecret)
     $headers.Add("Content-Type", "application/json")
 
-    if (-Not ($Global:SolanaWallet)) {
+    if (-Not ($SolanaWallet)) {
         Write-Host "Signing Wallet not found. Run Set-SolanaWallet to correct this"
         exit
     }
@@ -45,7 +45,7 @@ function New-NFTListing {
         nft_price = [System.Int64]($Lamports*$Price)
     }
 
-    $body | Add-Member -MemberType NoteProperty -Name 'wallet' -Value $Global:SolanaWallet
+    $body | Add-Member -MemberType NoteProperty -Name 'wallet' -Value $SolanaWallet
 
     try {
         $api = "$ApiUrl/solana/nft/marketplaces/$Marketplace/list/$Network/$MintAddress"

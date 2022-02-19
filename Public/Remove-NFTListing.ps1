@@ -30,14 +30,14 @@ function Remove-NFTListing {
     $headers.Add("APISecretKey", $Env:blockchainsecret)
     $headers.Add("Content-Type", "application/json")
 
-    if (-Not ($Global:SolanaWallet)) {
+    if (-Not ($SolanaWallet)) {
         Write-Host "Signing Wallet not found. Run Set-SolanaWallet to correct this"
         exit
     }
 
     $body = [PSCustomObject]@{}
 
-    $body | Add-Member -MemberType NoteProperty -Name 'wallet' -Value $Global:SolanaWallet
+    $body | Add-Member -MemberType NoteProperty -Name 'wallet' -Value $SolanaWallet
 
     try {
         $api = "$ApiUrl/solana/nft/marketplaces/$Marketplace/delist/$Network/$MintAddress"

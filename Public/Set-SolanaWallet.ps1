@@ -14,12 +14,11 @@ function Set-SolanaWallet {
 
     $Wallet = Read-Host "This will locally store your wallet. THIS IS YOU APPROVING TX ACTIONS. Enter your" $WalletType -MaskInput
 
-    $Global:SolanaWallet = @{
+    $Script:SolanaWallet = @{
         $WalletType = $Wallet
     }
 
-
-    if ($Env:SolanaWallet) {
+    if ($SolanaWallet) {
         $stored = "Your wallet details have been stored locally in this session. Keys will CLEAR after session is terminated"
     }
 
