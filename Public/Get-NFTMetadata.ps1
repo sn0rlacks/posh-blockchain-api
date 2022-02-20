@@ -1,12 +1,12 @@
 <#
 .SYNOPSIS
-    Used to retrieve information on a NFT Listing
+    Used to retrieve metadata (arweave link etc) and attributes for a given mint address
 .PARAMETER MintAddress
     Exact Mint Address of the NFT you wish to retrieve.    
 .PARAMETER Network
     Network to use. Choices are mainnet-beta and devnet.
 #>
-function Get-NFTListing {
+function Get-NFTMetadata {
     param(
         [Parameter(Mandatory=$true)]
         [string] 
@@ -24,13 +24,11 @@ function Get-NFTListing {
     $headers.Add("Content-Type", "application/json")
 
     try {
-        $api = "$ApiUrl/solana/nft/marketplaces/listing/$Network/$MintAddress"
+        $api = "$ApiUrl/solana/nft/$Network/$MintAddress"
         $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers
-        foreach ($listing in $response) {
-            $listing.price = [Decimal]$listing.price/$Lamports
-        }
         return $response
-    } catch [Microsoft.PowerShell.Commands.HttpResponseException]{
-        Write-Warning ($_.ErrorDetails.Message | ConvertFrom-Json).error_message  
+    } catch {
+        $_
     }
+
 }
