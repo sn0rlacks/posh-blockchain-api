@@ -9,7 +9,7 @@
 [Int64]$Script:Lamports = 1000000000
 [String]$Script:SolscanApi = 'https://api.solscan.io'
 [String]$Script:SolscanPublicApi = 'https://public-api.solscan.io'
-$Public = @( Get-ChildItem -Path ".\Public\*.ps1" -ErrorAction SilentlyContinue )
+$Public = @( Get-ChildItem -Path ".\Public\*\*.ps1" -ErrorAction SilentlyContinue )
 
 foreach ($import in $Public) {
     try {
