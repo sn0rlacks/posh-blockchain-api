@@ -18,7 +18,7 @@ function Get-NFTCollectionStats {
         "magic-eden" {
             try {
                 $api = "$MEUrl/rpc/getCollectionEscrowStats/$CollectionName"
-                $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers -ResponseHeadersVariable 'ResponseHeaders'
+                $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers -ResponseHeadersVariable 'ResponseHeaders' -DisableKeepAlive
                 $response | Add-Member -MemberType NoteProperty -Name 'Headers' -Value $ResponseHeaders
                 $response.results.floorPrice = $response.results.floorPrice/$Lamports
                 $response.results.avgPrice24hr = [Math]::Round(($response.results.avgPrice24hr/$Lamports), 2)
@@ -36,7 +36,7 @@ function Get-NFTCollectionStats {
         "solanart" {
             try {
                 $api = "$SolanartUrl/get_floor_price?collection=$CollectionName"
-                $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers 
+                $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers -DisableKeepAlive
                 $master = [PSCustomObject]@{
                     floorPrice = $response.floorPrice
                     count_listed = $response.count_listed

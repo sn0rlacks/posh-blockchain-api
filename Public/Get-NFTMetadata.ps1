@@ -15,7 +15,11 @@ function Get-NFTMetadata {
         [Parameter(Mandatory=$true)]
         [ValidateSet("devnet", "mainnet-beta")]
         [String] 
-        $Network
+        $Network,
+
+        [Parameter(Mandatory=$false)]
+        [switch] 
+        $UseSolscan        
     )
 
     $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
@@ -23,12 +27,24 @@ function Get-NFTMetadata {
     $headers.Add("APISecretKey", $Env:blockchainsecret)
     $headers.Add("Content-Type", "application/json")
 
-    try {
-        $api = "$ApiUrl/solana/nft/$Network/$MintAddress"
-        $response = Invoke-RestMethod $api -Method 'GET' -Headers $headers
-        return $response
-    } catch {
-        $_
+    switch ($UseSolscan) {
+        $true { 
+            try {
+                $api = "$SolscanApi/account?address=$MintAddress"
+                $response = (Invoke-RestMethod $api -Method 'GET' -Headers $headers).data
+                return $response
+            } catch {
+                $_
+            }
+        }
+        $false {
+            try {
+                $api = "$ApiUrl/solana/nft/$Network/$MintAddress"
+                $response = (Invoke-RestMethod $api -Method 'GET' -Headers $headers).data
+                return $response
+            } catch {
+                $_
+            }
+        }
     }
-
 }

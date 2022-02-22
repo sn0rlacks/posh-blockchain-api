@@ -41,7 +41,7 @@ function Remove-NFTListing {
 
     try {
         $api = "$ApiUrl/solana/nft/marketplaces/$Marketplace/delist/$Network/$MintAddress"
-        $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body $body
+        $response = Invoke-RestMethod $api -Method 'POST' -Headers $headers -Body ($body | ConvertTo-Json)
         return $response | Format-List
     } catch {
         $_
